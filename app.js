@@ -43,4 +43,29 @@ class Clock extends React.Component {
   }
 }
 
-ReactDOM.render(<Clock />, document.querySelector(`#root`));
+const SwitchButton = (props) => (
+  <button onClick={props.handleClick}>{props.active ? "Wyłącz" : "Włącz"}</button>
+);
+
+class App extends React.Component {
+  state = {
+    active: true,
+  };
+
+  handleClick = () => {
+    this.setState((state) => ({
+      active: !state.active,
+    }));
+  };
+
+  render() {
+    return (
+      <div>
+        <SwitchButton active={this.state.active} handleClick={this.handleClick} />
+        {this.state.active && <Clock />}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector(`#root`));
